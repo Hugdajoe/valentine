@@ -26,8 +26,8 @@
         --shadow: 0 16px 50px rgba(0,0,0,.12);
         --radius: 22px;
 
-        /* ✅ CHANGE IMAGE SIZE HERE (single place) */
-        --pet-size: 600px; /* <-- make bigger/smaller */
+        /* ✅ DOG SIZE (change this number) */
+        --pet-size: 300px;
       }
 
       *{ box-sizing:border-box; }
@@ -54,20 +54,22 @@
         background:var(--card);
         border-radius: var(--radius);
         box-shadow: var(--shadow);
-        padding: 44px 32px 28px;
-        min-height: 420px;
+        padding: 34px 32px 28px;
+        min-height: 520px; /* a bit taller to fit the big dog */
         overflow:hidden;
       }
 
       .top{
         display:flex;
         justify-content:center;
-        margin-bottom: 0px;
+
+        /* ✅ SPACE UNDER DOG (reduce if needed) */
+        margin-bottom: 6px;
       }
 
       .petImg{
-        width: var(--pet-size);   /* ✅ controlled by --pet-size above */
-        height: var(--pet-size);  /* ✅ controlled by --pet-size above */
+        width: var(--pet-size);
+        height: var(--pet-size);
         object-fit: contain;
         filter: drop-shadow(0 10px 18px rgba(0,0,0,.12));
         user-select:none;
@@ -75,11 +77,11 @@
       }
 
       h1{
-        margin: 0 0 34px;
+        margin: 0 0 26px;
         text-align:center;
         font-weight: 800;
         letter-spacing: -0.02em;
-        font-size: clamp(28px, 4vw, 46px);
+        font-size: clamp(26px, 3.6vw, 44px);
         line-height: 1.08;
       }
 
@@ -90,7 +92,7 @@
         align-items:center;
         justify-content:center;
         gap: 70px;
-        margin-top: 10px;
+        margin-top: 6px;
       }
 
       button{
@@ -162,12 +164,15 @@
       }
 
       @media (max-width: 420px){
-        .card{ padding: 36px 18px 24px; min-height: 420px; }
+        .card{
+          padding: 28px 18px 24px;
+          min-height: 560px;
+        }
         .btnRow{ gap: 48px; }
         #noBtn{ transform: translateX(96px); }
 
-        /* ✅ mobile override if you want it smaller on phones */
-        :root{ --pet-size: 200px; } /* tweak this too if needed */
+        /* ✅ smaller dog on tiny screens so it fits */
+        :root{ --pet-size: 240px; }
       }
     </style>
   </head>
@@ -176,11 +181,9 @@
     <div class="wrap">
       <div class="card" id="card">
         <div class="top">
-          <!-- Put dog.png in the same folder as this index.html -->
           <img class="petImg" src="dog.png" alt="Golden retriever with heart and key" />
         </div>
 
-        <!-- ✅ UPDATED TEXT -->
         <h1>Monique will you be my valentine?</h1>
 
         <div class="btnRow" id="btnRow">
@@ -188,8 +191,7 @@
           <button id="noBtn" type="button" aria-label="No">No</button>
         </div>
 
-        <!-- ✅ UPDATED BOTTOM TEXT -->
-        <div class="hint" id="hint">You can't say no to your Goldie &lt;3</div>
+        <div class="hint" id="hint">You can't say no to your gordinho &lt;3</div>
       </div>
     </div>
 
@@ -205,7 +207,6 @@
       const card = document.getElementById("card");
       const noBtn = document.getElementById("noBtn");
       const yesBtn = document.getElementById("yesBtn");
-      const hint = document.getElementById("hint");
       const backdrop = document.getElementById("backdrop");
       const closeBtn = document.getElementById("closeBtn");
 
@@ -262,6 +263,7 @@
     </script>
   </body>
 </html>
+
 
 
 
