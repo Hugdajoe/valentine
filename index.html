@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Valentine?</title>
+
+    <meta name="description" content="Quick question 😇" />
+    <meta property="og:title" content="Valentine?" />
+    <meta property="og:description" content="Quick question 😇" />
+    <meta property="og:type" content="website" />
+
+    <style>
+      :root{
+        --pink-1:#f3c6cf;
+        --pink-2:#ddb1c1;
+        --card:#f6f6f6;
+        --text:#111;
+        --muted:#666;
+        --yes:#e24f78;
+        --yes-dark:#c83f66;
+        --no:#e7e7ea;
+        --shadow: 0 16px 50px rgba(0,0,0,.12);
+        --radius: 22px;
+
+        /* ✅ CHANGE IMAGE SIZE HERE (single place) */
+        --pet-size: 300px; /* <-- make bigger/smaller */
+      }
+
+      *{ box-sizing:border-box; }
+      html,body{ height:100%; }
+      body{
+        margin:0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+        color:var(--text);
+        background:
+          radial-gradient(1200px 900px at 50% 35%, rgba(255,255,255,.28), rgba(255,255,255,0) 55%),
+          linear-gradient(180deg, var(--pink-1), var(--pink-2));
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding: 24px;
+      }
+
+      .wrap{
+        width:min(860px, 92vw);
+      }
+
+      .card{
+        position:relative;
+        background:var(--card);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 44px 32px 28px;
+        min-height: 420px;
+        overflow:hidden;
+      }
+
+      .top{
+        display:flex;
+        justify-content:center;
+        margin-bottom: -70px;
+      }
+
+      .petImg{
+        width: var(--pet-size);   /* ✅ controlled by --pet-size above */
+        height: var(--pet-size);  /* ✅ controlled by --pet-size above */
+        object-fit: contain;
+        filter: drop-shadow(0 10px 18px rgba(0,0,0,.12));
+        user-select:none;
+        -webkit-user-drag: none;
+      }
+
+      h1{
+        margin: 0 0 34px;
+        text-align:center;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        font-size: clamp(28px, 4vw, 46px);
+        line-height: 1.08;
+      }
+
+      .btnRow{
+        position:relative;
+        height: 92px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap: 70px;
+        margin-top: 10px;
+      }
+
+      button{
+        border:0;
+        cursor:pointer;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 12px 28px;
+        border-radius: 999px;
+        transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+        user-select:none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      button:active{ transform: translateY(1px) scale(.99); }
+
+      #yesBtn{
+        background: var(--yes);
+        color:white;
+        box-shadow: 0 12px 22px rgba(226,79,120,.35);
+      }
+      #yesBtn:hover{ background: var(--yes-dark); }
+
+      #noBtn{
+        background: var(--no);
+        color:#222;
+        box-shadow: 0 10px 18px rgba(0,0,0,.10);
+        position:absolute;
+        left: 50%;
+        transform: translateX(120px);
+      }
+
+      .hint{
+        margin-top: 18px;
+        text-align:center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .modalBackdrop{
+        position:fixed;
+        inset:0;
+        background: rgba(0,0,0,.35);
+        display:none;
+        align-items:center;
+        justify-content:center;
+        padding: 20px;
+      }
+      .modal{
+        width:min(520px, 92vw);
+        background:white;
+        border-radius: 18px;
+        box-shadow: 0 20px 70px rgba(0,0,0,.25);
+        padding: 22px 22px 18px;
+        text-align:center;
+      }
+      .modal h2{
+        margin: 4px 0 8px;
+        font-size: 26px;
+        letter-spacing:-0.02em;
+      }
+      .modal p{
+        margin: 0 0 16px;
+        color:#333;
+      }
+      .modal .close{
+        background:#111;
+        color:white;
+        padding: 10px 16px;
+      }
+
+      @media (max-width: 420px){
+        .card{ padding: 36px 18px 24px; min-height: 420px; }
+        .btnRow{ gap: 48px; }
+        #noBtn{ transform: translateX(96px); }
+
+        /* ✅ mobile override if you want it smaller on phones */
+        :root{ --pet-size: 145px; } /* tweak this too if needed */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="card" id="card">
+        <div class="top">
+          <!-- Put dog.png in the same folder as this index.html -->
+          <img class="petImg" src="dog.png" alt="Golden retriever with heart and key" />
+        </div>
+
+        <!-- ✅ UPDATED TEXT -->
+        <h1>Monique will you be my valentine?</h1>
+
+        <div class="btnRow" id="btnRow">
+          <button id="yesBtn" type="button">Yes</button>
+          <button id="noBtn" type="button" aria-label="No">No</button>
+        </div>
+
+        <!-- ✅ UPDATED BOTTOM TEXT -->
+        <div class="hint" id="hint">You can't say no to your Goldie &lt;3</div>
+      </div>
+    </div>
+
+    <div class="modalBackdrop" id="backdrop" role="dialog" aria-modal="true">
+      <div class="modal">
+        <h2>Let’s gooo 💘</h2>
+        <p>Screenshot this and send it to me 😌</p>
+        <button class="close" id="closeBtn" type="button">Close</button>
+      </div>
+    </div>
+
+    <script>
+      const card = document.getElementById("card");
+      const noBtn = document.getElementById("noBtn");
+      const yesBtn = document.getElementById("yesBtn");
+      const hint = document.getElementById("hint");
+      const backdrop = document.getElementById("backdrop");
+      const closeBtn = document.getElementById("closeBtn");
+
+      function moveNoButton() {
+        const cardRect = card.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
+
+        const padding = 18;
+        const minX = padding;
+        const maxX = cardRect.width - btnRect.width - padding;
+        const minY = cardRect.height * 0.55;
+        const maxY = cardRect.height - btnRect.height - padding;
+
+        const x = Math.max(minX, Math.min(maxX, Math.random() * (maxX - minX) + minX));
+        const y = Math.max(minY, Math.min(maxY, Math.random() * (maxY - minY) + minY));
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+        noBtn.style.transform = "none";
+      }
+
+      noBtn.addEventListener("mouseenter", moveNoButton);
+      noBtn.addEventListener("focus", moveNoButton);
+
+      card.addEventListener("touchstart", (e) => {
+        const t = e.touches[0];
+        const btn = noBtn.getBoundingClientRect();
+        const dx = Math.abs(t.clientX - (btn.left + btn.width / 2));
+        const dy = Math.abs(t.clientY - (btn.top + btn.height / 2));
+        if (dx < 90 && dy < 70) moveNoButton();
+      }, { passive: true });
+
+      noBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        moveNoButton();
+      });
+
+      yesBtn.addEventListener("click", () => {
+        backdrop.style.display = "flex";
+      });
+
+      closeBtn.addEventListener("click", () => {
+        backdrop.style.display = "none";
+      });
+
+      backdrop.addEventListener("click", (e) => {
+        if (e.target === backdrop) backdrop.style.display = "none";
+      });
+
+      window.addEventListener("load", () => {
+        const cardRect = card.getBoundingClientRect();
+        noBtn.style.top = (cardRect.height * 0.63) + "px";
+      });
+    </script>
+  </body>
+</html>
